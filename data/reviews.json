@@ -1,1 +1,26 @@
-
+[
+  {
+    "author": "Sarah M.",
+    "location": "Stratford-upon-Avon",
+    "stars": 5,
+    "text": "D&J completely transformed our back garden. Denis and Julia are professional, tidy, and always on time. The patio looks absolutely stunning. Couldn't recommend them more highly."
+  },
+  {
+    "author": "James T.",
+    "location": "Warwick",
+    "stars": 5,
+    "text": "Had them install a new driveway and fence. Excellent quality work, very fair pricing, and they left the property spotless. Will definitely use them again."
+  },
+  {
+    "author": "Helen R.",
+    "location": "Leamington Spa",
+    "stars": 5,
+    "text": "Regular lawn maintenance for over a year now. Always show up when they say they will and the garden always looks great. Reliable, friendly and honest."
+  },
+  {
+    "author": "Mark B.",
+    "location": "Alcester",
+    "stars": 5,
+    "text": "Sent a photo on WhatsApp and had a firm price within minutes. The hedge cutting and garden clearance was done the same week. Brilliant service."
+  }
+]
