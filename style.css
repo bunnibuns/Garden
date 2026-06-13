@@ -308,23 +308,37 @@ em { font-style: italic; color: var(--green-light); }
 }
 
 /* ===== SERVICES ===== */
-#panel-services { background: var(--cream); }
+#panel-services { background: var(--cream); align-items: flex-start; }
+
+.services-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  width: 100%;
+}
+
+.category-title { margin-bottom: 14px; }
+
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }
+
 .service-card {
   background: white;
-  border-radius: var(--radius);
-  padding: 20px 18px;
+  border-radius: 10px;
+  padding: 14px 14px;
   border: 1px solid rgba(0,0,0,0.06);
   transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
 }
-.service-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(26,58,26,0.1); }
-.svc-icon { font-size: 1.6rem; margin-bottom: 10px; }
-.service-card h3 { margin-bottom: 6px; font-size: 0.95rem; }
-.service-card p { color: var(--gray); font-size: 0.82rem; line-height: 1.5; }
+.service-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,58,26,0.09); }
+.svc-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 1px; }
+.service-card h3 { font-size: 0.82rem; margin-bottom: 3px; color: var(--green); }
+.service-card p { color: var(--gray); font-size: 0.75rem; line-height: 1.4; }
 
 /* ===== PRICING ===== */
 #panel-pricing { background: white; }
@@ -660,7 +674,8 @@ a.c-method:hover { background: rgba(255,255,255,0.12); }
   }
   .panel.active { display: flex; }
 
-  /* Gallery grid on mobile */
+  .services-two-col { grid-template-columns: 1fr; gap: 20px; }
+  .services-grid { grid-template-columns: 1fr 1fr; }
   .gallery-grid { grid-template-columns: 1fr 1fr; }
   .gallery-thumb:first-child { grid-column: span 2; }
   .lb-img-wrap { max-width: calc(100vw - 80px); }
