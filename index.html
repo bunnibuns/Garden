@@ -39,12 +39,6 @@
   <span>WhatsApp Us</span>
 </a>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo preview">
-  <button class="lightbox-close" id="lbClose" aria-label="Close">✕</button>
-  <img id="lbImg" src="" alt="Project photo">
-</div>
-
 <!-- Top bar -->
 <div class="topbar">
   <div class="container">
@@ -192,33 +186,24 @@
 
   <!-- GALLERY -->
   <section class="panel" id="panel-gallery" aria-label="Gallery">
-    <div class="container panel-inner">
-      <div class="section-header">
+    <div class="gallery-panel">
+      <div class="section-header gallery-header">
         <span class="eyebrow">Our Work</span>
         <h2>See the <em>Difference</em></h2>
       </div>
-      <div class="gallery-grid">
-        <div class="gallery-item gallery-item--wide" data-full="images/projects/project-1.jpg">
-          <img src="images/projects/project-1.jpg" alt="Garden Design" loading="lazy">
-          <div class="gallery-overlay"><span>🔍 Garden Design</span></div>
+
+      <div class="slider-wrap">
+        <button class="slider-arrow slider-prev" id="sliderPrev" aria-label="Previous photo">&#8592;</button>
+
+        <div class="slider-track" id="sliderTrack">
+          <!-- slides injected by main.js -->
         </div>
-        <div class="gallery-item" data-full="images/projects/project-2.jpg">
-          <img src="images/projects/project-2.jpg" alt="Hedge Cutting" loading="lazy">
-          <div class="gallery-overlay"><span>🔍 Hedge Cutting</span></div>
-        </div>
-        <div class="gallery-item" data-full="images/projects/project-3.jpg">
-          <img src="images/projects/project-3.jpg" alt="Lawn Care" loading="lazy">
-          <div class="gallery-overlay"><span>🔍 Lawn Care</span></div>
-        </div>
-        <div class="gallery-item" data-full="images/projects/project-4.jpg">
-          <img src="images/projects/project-4.jpg" alt="Garden Clearance" loading="lazy">
-          <div class="gallery-overlay"><span>🔍 Garden Clearance</span></div>
-        </div>
-        <div class="gallery-item" data-full="images/projects/project-5.jpg">
-          <img src="images/projects/project-5.jpg" alt="Planting &amp; Maintenance" loading="lazy">
-          <div class="gallery-overlay"><span>🔍 Planting &amp; Maintenance</span></div>
-        </div>
+
+        <button class="slider-arrow slider-next" id="sliderNext" aria-label="Next photo">&#8594;</button>
       </div>
+
+      <div class="slider-dots" id="sliderDots"></div>
+      <p class="gallery-hint">Add photos named <code>1.jpg</code>, <code>2.jpg</code>… to <code>images/projects/</code> and set the count in <code>main.js</code></p>
     </div>
   </section>
 
@@ -307,6 +292,8 @@
   <div class="container footer-inner">
     <p>© 2025 D&amp;J Garden &amp; Landscaping — Stratford-upon-Avon, Warwickshire</p>
     <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms &amp; Conditions</a>
       <a href="tel:07342274551">07342 274 551</a>
     </div>
   </div>
