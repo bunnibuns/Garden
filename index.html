@@ -187,24 +187,30 @@
   <!-- GALLERY -->
   <section class="panel" id="panel-gallery" aria-label="Gallery">
     <div class="gallery-panel">
-      <div class="section-header gallery-header">
-        <span class="eyebrow">Our Work</span>
-        <h2>See the <em>Difference</em></h2>
-      </div>
-
-      <div class="slider-wrap">
-        <button class="slider-arrow slider-prev" id="sliderPrev" aria-label="Previous photo">&#8592;</button>
-
-        <div class="slider-track" id="sliderTrack">
-          <!-- slides injected by main.js -->
+      <div class="container gallery-container">
+        <div class="section-header">
+          <span class="eyebrow">Our Work</span>
+          <h2>See the <em>Difference</em></h2>
+          <p>Click any photo to view full screen</p>
         </div>
-
-        <button class="slider-arrow slider-next" id="sliderNext" aria-label="Next photo">&#8594;</button>
+        <div class="gallery-grid" id="galleryGrid">
+          <!-- thumbnails injected by main.js -->
+        </div>
+        <p class="gallery-hint">Add photos named <code>1.jpg</code>, <code>2.jpg</code>… to <code>images/projects/</code> and set the count in <code>main.js</code></p>
       </div>
-
-      <div class="slider-dots" id="sliderDots"></div>
     </div>
   </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Previous">&#8592;</button>
+    <div class="lb-img-wrap">
+      <img id="lbImg" src="" alt="Project photo">
+      <div class="lb-counter" id="lbCounter"></div>
+    </div>
+    <button class="lb-arrow lb-next" id="lbNext" aria-label="Next">&#8594;</button>
+  </div>
 
   <!-- CONTACT -->
   <section class="panel" id="panel-contact" aria-label="Contact">

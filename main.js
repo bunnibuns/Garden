@@ -67,76 +67,82 @@ async function loadReviews() {
 }
 loadReviews();
 
-/* ===== GALLERY SLIDER ===== */
+/* ===== GALLERY GRID + LIGHTBOX ===== */
 
 // ─── НАСТРОЙКА: укажите количество фото в папке images/projects/ ───
 const PHOTO_COUNT = 5; // измените на нужное число
 // ────────────────────────────────────────────────────────────────────
 
-const track    = document.getElementById('sliderTrack');
-const dotsWrap = document.getElementById('sliderDots');
-let current = 0;
-let startX = 0;
-let isDragging = false;
+const grid    = document.getElementById('galleryGrid');
+const lightbox = document.getElementById('lightbox');
+const lbImg   = document.getElementById('lbImg');
+const lbCounter = document.getElementById('lbCounter');
+let currentPhoto = 0;
 
-// Создаём слайды
+// Строим сетку превью
 for (let i = 1; i <= PHOTO_COUNT; i++) {
-  const slide = document.createElement('div');
-  slide.className = 'slide' + (i === 1 ? ' active' : '');
+  const thumb = document.createElement('div');
+  thumb.className = 'gallery-thumb';
 
   const img = document.createElement('img');
   img.src = `images/projects/${i}.jpg`;
-  img.alt = `Project photo ${i}`;
-  img.loading = i === 1 ? 'eager' : 'lazy';
+  img.alt = `Project ${i}`;
+  img.loading = i <= 6 ? 'eager' : 'lazy';
 
-  slide.appendChild(img);
-  track.appendChild(slide);
+  const overlay = document.createElement('div');
+  overlay.className = 'gallery-thumb-overlay';
+  overlay.textContent = '🔍';
 
-  // Dot
-  const dot = document.createElement('button');
-  dot.className = 'slider-dot' + (i === 1 ? ' active' : '');
-  dot.setAttribute('aria-label', `Photo ${i}`);
-  dot.addEventListener('click', () => goTo(i - 1));
-  dotsWrap.appendChild(dot);
+  thumb.appendChild(img);
+  thumb.appendChild(overlay);
+  thumb.addEventListener('click', () => openLightbox(i - 1));
+  grid.appendChild(thumb);
 }
 
-function goTo(index) {
-  const slides = track.querySelectorAll('.slide');
-  const dots   = dotsWrap.querySelectorAll('.slider-dot');
-  slides[current].classList.remove('active');
-  dots[current].classList.remove('active');
-  current = (index + PHOTO_COUNT) % PHOTO_COUNT;
-  slides[current].classList.add('active');
-  dots[current].classList.add('active');
+// Открыть lightbox
+function openLightbox(index) {
+  currentPhoto = index;
+  updateLightbox();
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
 
-document.getElementById('sliderPrev').addEventListener('click', () => goTo(current - 1));
-document.getElementById('sliderNext').addEventListener('click', () => goTo(current + 1));
+function updateLightbox() {
+  lbImg.src = `images/projects/${currentPhoto + 1}.jpg`;
+  lbImg.alt = `Project ${currentPhoto + 1}`;
+  lbCounter.textContent = `${currentPhoto + 1} / ${PHOTO_COUNT}`;
+  document.getElementById('lbPrev').disabled = currentPhoto === 0;
+  document.getElementById('lbNext').disabled = currentPhoto === PHOTO_COUNT - 1;
+}
 
-// Keyboard arrows
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+document.getElementById('lbPrev').addEventListener('click', () => { if (currentPhoto > 0) { currentPhoto--; updateLightbox(); } });
+document.getElementById('lbNext').addEventListener('click', () => { if (currentPhoto < PHOTO_COUNT - 1) { currentPhoto++; updateLightbox(); } });
+
+// Клик по фону — закрыть
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+// Клавиатура
 document.addEventListener('keydown', e => {
-  if (document.getElementById('panel-gallery').classList.contains('active')) {
-    if (e.key === 'ArrowLeft')  goTo(current - 1);
-    if (e.key === 'ArrowRight') goTo(current + 1);
-  }
+  if (!lightbox.classList.contains('open')) return;
+  if (e.key === 'Escape')     closeLightbox();
+  if (e.key === 'ArrowLeft'  && currentPhoto > 0)              { currentPhoto--; updateLightbox(); }
+  if (e.key === 'ArrowRight' && currentPhoto < PHOTO_COUNT - 1) { currentPhoto++; updateLightbox(); }
 });
 
-// Touch / swipe support
-track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-track.addEventListener('touchend',   e => {
-  const diff = startX - e.changedTouches[0].clientX;
-  if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+// Свайп на мобильном
+let touchStartX = 0;
+lbImg.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+lbImg.addEventListener('touchend',   e => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (diff > 40  && currentPhoto < PHOTO_COUNT - 1) { currentPhoto++; updateLightbox(); }
+  if (diff < -40 && currentPhoto > 0)               { currentPhoto--; updateLightbox(); }
 }, { passive: true });
-
-// Mouse drag support (desktop)
-track.addEventListener('mousedown',  e => { startX = e.clientX; isDragging = true; });
-track.addEventListener('mouseup',    e => {
-  if (!isDragging) return;
-  isDragging = false;
-  const diff = startX - e.clientX;
-  if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
-});
-track.addEventListener('mouseleave', () => { isDragging = false; });
 
 /* ===== CONTACT FORM ===== */
 document.getElementById('contactForm').addEventListener('submit', function(e) {
