@@ -29,6 +29,7 @@
 }
 </script>
 
+<link rel="icon" type="image/svg+xml" href="images/icons/favicon.svg">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -265,7 +266,10 @@
         <div class="contact-form-wrap">
           <h3>Get a Free Quote</h3>
           <p>We'll reply within a few hours.</p>
-          <form id="contactForm" novalidate>
+          <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+            <input type="hidden" name="access_key" value="ВАШ_КЛЮЧ_СЮДА">
+            <input type="hidden" name="subject" value="New Quote Request – D&J Garden">
+            <input type="hidden" name="redirect" value="false">
             <div class="form-row">
               <div class="form-group">
                 <label for="fname">First Name</label>
@@ -290,22 +294,37 @@
               <label for="service">Service Required</label>
               <select id="service" name="service">
                 <option value="">Select a service...</option>
-                <option>Garden Clearance</option>
-                <option>Hedge Cutting &amp; Pruning</option>
-                <option>Pressure Washing</option>
-                <option>Fence / Shed / Decking Painting</option>
-                <option>Lawn Care &amp; Turfing</option>
-                <option>Fencing &amp; Repairs</option>
-                <option>General Garden Maintenance</option>
-                <option>Patio &amp; Driveway Installation</option>
+                <optgroup label="Garden Services">
+                  <option>Lawn Mowing &amp; Grass Cutting</option>
+                  <option>Hedge Trimming &amp; Shaping</option>
+                  <option>Planting &amp; Pruning</option>
+                  <option>Seasonal Planting &amp; Bedding</option>
+                  <option>Soil Fertilisation &amp; Root Feeding</option>
+                  <option>Mulching</option>
+                  <option>Garden Tidy-Ups</option>
+                  <option>Green Waste Removal</option>
+                </optgroup>
+                <optgroup label="Landscaping Services">
+                  <option>Driveways</option>
+                  <option>Fencing &amp; Gates</option>
+                  <option>Patios &amp; Retaining Walls</option>
+                  <option>Gazebos &amp; BBQ Areas</option>
+                  <option>Drainage Solutions</option>
+                  <option>Paving Stone Installation</option>
+                  <option>Pergola Construction</option>
+                  <option>Lawn Aeration &amp; Scarification</option>
+                  <option>Lawn Seeding &amp; Repair</option>
+                  <option>New Turf Laying</option>
+                </optgroup>
               </select>
             </div>
             <div class="form-group">
               <label for="message">Tell us about your garden</label>
               <textarea id="message" name="message" placeholder="Describe what needs doing and your location..."></textarea>
             </div>
-            <button type="submit" class="btn-submit">📩 Send My Request – Get Quote Fast</button>
+            <button type="submit" class="btn-submit" id="submitBtn">📩 Send My Request – Get Quote Fast</button>
             <div class="form-success" id="formSuccess">✓ Thanks! We'll be in touch shortly.</div>
+            <div class="form-error" id="formError">⚠️ Something went wrong. Please call us on 07342 274 551.</div>
           </form>
         </div>
       </div>
@@ -319,9 +338,8 @@
   <div class="container footer-inner">
     <p>© 2025 D&amp;J Garden &amp; Landscaping — Stratford-upon-Avon, Warwickshire</p>
     <div class="footer-links">
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms &amp; Conditions</a>
-      <a href="tel:07342274551">07342 274 551</a>
+      <a href="tel:07342274551">📞 07342 274 551</a>
+      <a href="mailto:djgarden986@gmail.com">✉️ djgarden986@gmail.com</a>
     </div>
   </div>
 </footer>

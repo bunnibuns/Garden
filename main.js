@@ -144,11 +144,50 @@ lbImg.addEventListener('touchend',   e => {
   if (diff < -40 && currentPhoto > 0)               { currentPhoto--; updateLightbox(); }
 }, { passive: true });
 
-/* ===== CONTACT FORM ===== */
-document.getElementById('contactForm').addEventListener('submit', function(e) {
+/* ===== CONTACT FORM (Formspree) ===== */
+const contactForm = document.getElementById('contactForm');
+const submitBtn   = document.getElementById('submitBtn');
+const formSuccess = document.getElementById('formSuccess');
+const formError   = document.getElementById('formError');
+
+contactForm.addEventListener('submit', async function(e) {
   e.preventDefault();
-  const success = document.getElementById('formSuccess');
-  success.style.display = 'block';
-  this.reset();
-  setTimeout(() => { success.style.display = 'none'; }, 6000);
+
+  // Basic validation
+  const phone = document.getElementById('phone').value.trim();
+  const fname = document.getElementById('fname').value.trim();
+  if (!fname || !phone) {
+    formError.textContent = '⚠️ Please fill in your name and phone number.';
+    formError.style.display = 'block';
+    setTimeout(() => formError.style.display = 'none', 4000);
+    return;
+  }
+
+  submitBtn.textContent = 'Sending...';
+  submitBtn.disabled = true;
+  formSuccess.style.display = 'none';
+  formError.style.display = 'none';
+
+  try {
+    const res = await fetch(contactForm.action, {
+      method: 'POST',
+      body: new FormData(contactForm),
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (res.ok) {
+      formSuccess.style.display = 'block';
+      contactForm.reset();
+      setTimeout(() => formSuccess.style.display = 'none', 6000);
+    } else {
+      throw new Error('Server error');
+    }
+  } catch {
+    formError.textContent = '⚠️ Something went wrong. Please call us on 07342 274 551.';
+    formError.style.display = 'block';
+    setTimeout(() => formError.style.display = 'none', 6000);
+  } finally {
+    submitBtn.textContent = '📩 Send My Request – Get Quote Fast';
+    submitBtn.disabled = false;
+  }
 });
